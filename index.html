@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop Meal – Trợ lý đặt món</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef3f0; --surface:#ffffff; --ink:#15221c; --muted:#66756d; --line:#dbe4df;
+  --brand:#0f6b4f; --brand-ink:#ffffff; --brand-soft:#e1f1ea; --accent:#f2b632; --danger:#b3261e;
+  --user:#0f6b4f; --user-ink:#fff; --bot:#f4f7f5;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1512; --surface:#16201b; --ink:#e8f0eb; --muted:#8fa197; --line:#26342d;
+    --brand:#3cc39a; --brand-ink:#06251a; --brand-soft:#1b2c25; --accent:#f2b632; --danger:#ff8a80;
+    --user:#2a9d7a; --user-ink:#04190f; --bot:#1c2923;
+  }
+}
+:root{color-scheme:light dark}
+*{box-sizing:border-box;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+html,body{height:100%;margin:0}
+body{font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);display:flex;justify-content:center;align-items:stretch;font-size:15px;line-height:1.5}
+.app{width:100%;max-width:780px;height:100%;display:flex;flex-direction:column;background:var(--surface);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+@media (min-width:820px){body{padding:20px 0}.app{border:1px solid var(--line);border-radius:18px;overflow:hidden}}
+
+header{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.logo{width:42px;height:42px;border-radius:12px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;flex:none}
+.logo svg{width:24px;height:24px}
+.title{flex:1;min-width:0}
+.title h1{font-size:16px;margin:0;font-weight:700}
+.status{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.status.ok .dot{background:#2fb872}
+.status.bad .dot{background:var(--danger)}
+.icon-btn{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;height:36px;padding:0 12px;font:inherit;font-size:13px;cursor:pointer}
+.icon-btn:hover{background:var(--brand-soft)}
+button:focus-visible,textarea:focus-visible,.chip:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+#log{flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.row{display:flex;gap:8px;max-width:100%}
+.row.user{justify-content:flex-end}
+.avatar{width:30px;height:30px;border-radius:10px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none;margin-top:2px}
+.avatar svg{width:18px;height:18px}
+.msg{max-width:78%;display:flex;flex-direction:column;gap:4px}
+.row.user .msg{align-items:flex-end}
+.bubble{padding:10px 14px;border-radius:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot .bubble{background:var(--bot);border:1px solid var(--line);border-top-left-radius:4px}
+.user .bubble{background:var(--user);color:var(--user-ink);border-top-right-radius:4px}
+.error .bubble{border-color:var(--danger);color:var(--danger)}
+.meta{font-size:11.5px;color:var(--muted);padding:0 4px}
+
+.typing .bubble{display:flex;gap:4px;align-items:center;padding:14px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+.welcome{margin:auto;max-width:460px;text-align:center;padding:10px 0}
+.welcome .logo{margin:0 auto 14px;width:56px;height:56px;border-radius:16px}
+.welcome .logo svg{width:32px;height:32px}
+.welcome h2{margin:0 0 6px;font-size:20px}
+.welcome p{margin:0 0 18px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+.chip:hover{border-color:var(--brand);background:var(--brand-soft)}
+.quick{padding:0 18px 8px}
+.quick .chips{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+.quick .chip{white-space:nowrap}
+
+form{display:flex;gap:10px;align-items:flex-end;padding:12px 18px 16px;border-top:1px solid var(--line)}
+textarea{flex:1;resize:none;overflow-y:hidden;max-height:130px;min-height:44px;border:1px solid var(--line);border-radius:14px;padding:11px 14px;font:inherit;background:var(--surface);color:var(--ink)}
+textarea::placeholder{color:var(--muted)}
+.send{width:44px;height:44px;border:0;border-radius:14px;background:var(--brand);color:var(--brand-ink);cursor:pointer;display:grid;place-items:center;flex:none}
+.send:disabled{opacity:.45;cursor:not-allowed}
+.send svg{width:20px;height:20px}
+.foot{font-size:11.5px;color:var(--muted);text-align:center;padding:0 18px 12px}
+@media (prefers-reduced-motion:reduce){#log{scroll-behavior:auto}.typing i{animation:none;opacity:.7}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 9 0 0 1-18 0z"/><path d="M8 8c0-1.5 1.5-1.5 1.5-3M12 8c0-1.5 1.5-1.5 1.5-3M16 8c0-1.5 1.5-1.5 1.5-3"/></svg>
+    </div>
+    <div class="title">
+      <h1>Shop Meal</h1>
+      <div class="status" id="status"><span class="dot"></span><span id="statusText">Đang kiểm tra kết nối…</span></div>
+    </div>
+    <button class="icon-btn" id="clear" type="button">Xóa cuộc trò chuyện</button>
+  </header>
+
+  <main id="log" aria-live="polite"></main>
+  <div class="quick" id="quick"></div>
+
+  <form id="form" autocomplete="off">
+    <textarea id="input" rows="1" maxlength="2000" placeholder="Nhập câu hỏi, ví dụ: đơn hàng của tôi đang ở đâu" aria-label="Tin nhắn"></textarea>
+    <button class="send" id="send" type="submit" aria-label="Gửi tin nhắn" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+    </button>
+  </form>
+  <div class="foot">Enter để gửi, Shift + Enter để xuống dòng.</div>
+</div>
+
+<script>
+// ====== CẤU HÌNH: sửa cho khớp với api.py của bạn ======
+const API_URL = "/chat";                       // api.py phục vụ trang này nên dùng đường dẫn tương đối
+const REQUEST_FIELD = "message";               // tên trường gửi đi
+const REPLY_FIELDS = ["reply", "response", "answer", "message"]; // tên trường chứa câu trả lời
+const SHOW_DEBUG = new URLSearchParams(location.search).has("debug"); // thêm ?debug để xem intent
+// =======================================================
+
+const SUGGESTIONS = [
+  "Xem thực đơn", "Có khuyến mãi gì không", "Đơn hàng của tôi đang ở đâu",
+  "Tôi muốn đặt bàn", "Phương thức thanh toán", "Liên hệ nhân viên hỗ trợ"
+];
+const STORE_KEY = "shopmeal_chat_v1";
+const BOT_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 9 0 0 1-18 0z"/><path d="M12 8c0-1.5 1.5-1.5 1.5-3"/></svg>';
+
+const log = document.getElementById("log");
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("send");
+const quick = document.getElementById("quick");
+let history = [];
+let pending = false;
+
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(history.slice(-100))); }catch(e){} }
+function load(){ try{ const d = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); if(Array.isArray(d)) history = d; }catch(e){ history = []; } }
+function timeStr(t){ return new Date(t).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}); }
+function scrollDown(){ log.scrollTop = log.scrollHeight; }
+
+function chipsEl(container){
+  container.innerHTML = "";
+  SUGGESTIONS.forEach(s => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = s;
+    b.addEventListener("click", () => send(s));
+    container.appendChild(b);
+  });
+}
+
+function bubble(m){
+  const row = document.createElement("div");
+  row.className = "row " + (m.role === "user" ? "user" : "bot") + (m.error ? " error" : "");
+  if(m.role !== "user"){
+    const av = document.createElement("div"); av.className = "avatar"; av.innerHTML = BOT_ICON; row.appendChild(av);
+  }
+  const wrap = document.createElement("div"); wrap.className = "msg";
+  const b = document.createElement("div"); b.className = "bubble"; b.textContent = m.text;
+  const meta = document.createElement("div"); meta.className = "meta";
+  meta.textContent = timeStr(m.time) + (SHOW_DEBUG && m.intent ? " · " + m.intent + " (" + m.confidence + ")" : "");
+  wrap.append(b, meta); row.appendChild(wrap);
+  return row;
+}
+
+function render(){
+  log.innerHTML = "";
+  if(history.length === 0){
+    const w = document.createElement("div"); w.className = "welcome";
+    w.innerHTML = '<div class="logo">' + BOT_ICON + '</div><h2>Xin chào, mình là trợ lý Shop Meal</h2><p>Mình có thể giúp bạn xem thực đơn, theo dõi đơn hàng, đặt bàn và nhiều việc khác.</p><div class="chips" id="welcomeChips"></div>';
+    log.appendChild(w);
+    chipsEl(w.querySelector("#welcomeChips"));
+    quick.style.display = "none";
+  } else {
+    history.forEach(m => log.appendChild(bubble(m)));
+    quick.style.display = "";
+    chipsEl(quick.querySelector(".chips") || (quick.innerHTML = '<div class="chips"></div>', quick.firstChild));
+  }
+  scrollDown();
+}
+
+function showTyping(){
+  const row = document.createElement("div"); row.className = "row bot typing"; row.id = "typing";
+  row.innerHTML = '<div class="avatar">' + BOT_ICON + '</div><div class="msg"><div class="bubble"><i></i><i></i><i></i></div></div>';
+  log.appendChild(row); scrollDown();
+}
+function hideTyping(){ const t = document.getElementById("typing"); if(t) t.remove(); }
+
+function setStatus(ok, text){
+  const s = document.getElementById("status");
+  s.className = "status " + (ok ? "ok" : "bad");
+  document.getElementById("statusText").textContent = text;
+}
+
+function pickReply(data){
+  if(typeof data === "string") return data;
+  for(const f of REPLY_FIELDS){ if(data && typeof data[f] === "string" && data[f].trim()) return data[f]; }
+  return null;
+}
+
+async function send(text){
+  text = (text || "").trim();
+  if(!text || pending) return;
+  pending = true; sendBtn.disabled = true;
+  history.push({role:"user", text, time:Date.now()}); save(); render();
+  input.value = ""; autosize(); showTyping();
+
+  try{
+    const res = await fetch(API_URL, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({[REQUEST_FIELD]: text})
+    });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    const reply = pickReply(data);
+    if(!reply) throw new Error("Phản hồi không có nội dung câu trả lời");
+    hideTyping();
+    history.push({role:"bot", text:reply, time:Date.now(), intent:data.intent, confidence:data.confidence != null ? Number(data.confidence).toFixed(2) : ""});
+    setStatus(true, "Đang trực tuyến");
+  }catch(err){
+    hideTyping();
+    history.push({role:"bot", error:true, time:Date.now(),
+      text:"Không kết nối được tới máy chủ (" + err.message + "). Hãy kiểm tra api.py đã chạy chưa, rồi thử gửi lại."});
+    setStatus(false, "Mất kết nối");
+  }
+  pending = false; save(); render(); input.focus(); sendBtn.disabled = !input.value.trim();
+}
+
+function autosize(){
+  input.style.height = "auto";
+  input.style.height = Math.min(input.scrollHeight, 130) + "px";
+  input.style.overflowY = input.scrollHeight > 130 ? "auto" : "hidden";
+  sendBtn.disabled = pending || !input.value.trim();
+}
+
+input.addEventListener("input", autosize);
+input.addEventListener("keydown", e => {
+  if(e.key === "Enter" && !e.shiftKey && !e.isComposing){ e.preventDefault(); send(input.value); }
+});
+form.addEventListener("submit", e => { e.preventDefault(); send(input.value); });
+document.getElementById("clear").addEventListener("click", () => {
+  if(history.length && !confirm("Xóa toàn bộ cuộc trò chuyện này?")) return;
+  history = []; save(); render();
+});
+
+async function ping(){
+  try{
+    const res = await fetch(new URL("/health", new URL(API_URL, location.href)), {method:"GET"});
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    setStatus(true, "Đang trực tuyến");
+  }catch(e){ setStatus(false, "Chưa kết nối máy chủ"); }
+}
+
+load(); render(); ping(); input.focus();
+</script>
+</body>
+</html>

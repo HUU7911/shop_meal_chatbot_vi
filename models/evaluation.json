@@ -1,0 +1,198 @@
+{
+  "accuracy": 0.8462250185048112,
+  "classification_report": {
+    "apply_franchise": {
+      "precision": 0.7475247524752475,
+      "recall": 0.8435754189944135,
+      "f1-score": 0.7926509186351706,
+      "support": 179.0
+    },
+    "cancel_catering": {
+      "precision": 0.7616279069767442,
+      "recall": 0.7987804878048781,
+      "f1-score": 0.7797619047619048,
+      "support": 164.0
+    },
+    "cancel_order": {
+      "precision": 0.7267080745341615,
+      "recall": 0.7090909090909091,
+      "f1-score": 0.7177914110429447,
+      "support": 165.0
+    },
+    "cancel_reservation": {
+      "precision": 0.9161676646706587,
+      "recall": 0.8138297872340425,
+      "f1-score": 0.8619718309859155,
+      "support": 188.0
+    },
+    "change_catering": {
+      "precision": 0.4796380090497738,
+      "recall": 0.7162162162162162,
+      "f1-score": 0.5745257452574526,
+      "support": 148.0
+    },
+    "change_order": {
+      "precision": 0.9657142857142857,
+      "recall": 0.8622448979591837,
+      "f1-score": 0.9110512129380054,
+      "support": 196.0
+    },
+    "change_reservation": {
+      "precision": 0.8957055214723927,
+      "recall": 0.7807486631016043,
+      "f1-score": 0.8342857142857143,
+      "support": 187.0
+    },
+    "check_menu": {
+      "precision": 0.9245283018867925,
+      "recall": 0.7819148936170213,
+      "f1-score": 0.8472622478386167,
+      "support": 188.0
+    },
+    "check_offers": {
+      "precision": 0.6470588235294118,
+      "recall": 0.6586826347305389,
+      "f1-score": 0.6528189910979229,
+      "support": 167.0
+    },
+    "customer_service": {
+      "precision": 0.7932692307692307,
+      "recall": 0.8967391304347826,
+      "f1-score": 0.8418367346938775,
+      "support": 184.0
+    },
+    "delivery_time": {
+      "precision": 0.9649122807017544,
+      "recall": 0.953757225433526,
+      "f1-score": 0.9593023255813954,
+      "support": 173.0
+    },
+    "events": {
+      "precision": 0.9695121951219512,
+      "recall": 0.8457446808510638,
+      "f1-score": 0.9034090909090909,
+      "support": 188.0
+    },
+    "file_complaint": {
+      "precision": 0.9058823529411765,
+      "recall": 0.8235294117647058,
+      "f1-score": 0.8627450980392157,
+      "support": 187.0
+    },
+    "find_franchise": {
+      "precision": 0.956989247311828,
+      "recall": 0.9468085106382979,
+      "f1-score": 0.9518716577540107,
+      "support": 188.0
+    },
+    "find_restaurant": {
+      "precision": 0.8272251308900523,
+      "recall": 0.8681318681318682,
+      "f1-score": 0.8471849865951743,
+      "support": 182.0
+    },
+    "franchising": {
+      "precision": 0.7932960893854749,
+      "recall": 0.7888888888888889,
+      "f1-score": 0.7910863509749304,
+      "support": 180.0
+    },
+    "human_agent": {
+      "precision": 0.9213483146067416,
+      "recall": 0.9479768786127167,
+      "f1-score": 0.9344729344729344,
+      "support": 173.0
+    },
+    "information_allergens": {
+      "precision": 0.9576719576719577,
+      "recall": 0.9576719576719577,
+      "f1-score": 0.9576719576719577,
+      "support": 189.0
+    },
+    "information_catering": {
+      "precision": 0.7755102040816326,
+      "recall": 0.8306010928961749,
+      "f1-score": 0.8021108179419525,
+      "support": 183.0
+    },
+    "information_company": {
+      "precision": 0.7745098039215687,
+      "recall": 0.8777777777777778,
+      "f1-score": 0.8229166666666666,
+      "support": 180.0
+    },
+    "leave_review": {
+      "precision": 0.9364161849710982,
+      "recall": 0.8756756756756757,
+      "f1-score": 0.9050279329608939,
+      "support": 185.0
+    },
+    "locations": {
+      "precision": 0.8716577540106952,
+      "recall": 0.9367816091954023,
+      "f1-score": 0.9030470914127424,
+      "support": 174.0
+    },
+    "make_reservation": {
+      "precision": 0.8385416666666666,
+      "recall": 0.8518518518518519,
+      "f1-score": 0.8451443569553806,
+      "support": 189.0
+    },
+    "order_catering": {
+      "precision": 0.850828729281768,
+      "recall": 0.9112426035502958,
+      "f1-score": 0.88,
+      "support": 169.0
+    },
+    "order_food_online": {
+      "precision": 0.7777777777777778,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.7777777777777778,
+      "support": 171.0
+    },
+    "order_issue": {
+      "precision": 0.943502824858757,
+      "recall": 0.8835978835978836,
+      "f1-score": 0.912568306010929,
+      "support": 189.0
+    },
+    "payment_methods": {
+      "precision": 0.8741721854304636,
+      "recall": 0.7374301675977654,
+      "f1-score": 0.8,
+      "support": 179.0
+    },
+    "privacy_policy": {
+      "precision": 0.875,
+      "recall": 0.8415300546448088,
+      "f1-score": 0.8579387186629527,
+      "support": 183.0
+    },
+    "report_payment_issue": {
+      "precision": 0.9104477611940298,
+      "recall": 0.9289340101522843,
+      "f1-score": 0.9195979899497487,
+      "support": 197.0
+    },
+    "track_order": {
+      "precision": 0.9349112426035503,
+      "recall": 0.88268156424581,
+      "f1-score": 0.9080459770114943,
+      "support": 179.0
+    },
+    "accuracy": 0.8462250185048112,
+    "macro avg": {
+      "precision": 0.8506018758169215,
+      "recall": 0.844340484338004,
+      "f1-score": 0.8451958916295593,
+      "support": 5404.0
+    },
+    "weighted avg": {
+      "precision": 0.8552646387049803,
+      "recall": 0.8462250185048112,
+      "f1-score": 0.8485748820272815,
+      "support": 5404.0
+    }
+  }
+}
