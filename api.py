@@ -13,7 +13,7 @@ INDEX_PATH = BASE_DIR / "index.html"
 app = FastAPI(title="Shop Meal Vietnamese Chatbot", version="1.0.0")
 
 if not os.path.exists(MODEL_PATH):
-    raise RuntimeError("Chưa có model. Hãy chạy python train.py trước.")
+    raise RuntimeError("Chưa có model. Hãy chạy python train_lr.py trước.")
 
 model = joblib.load(MODEL_PATH)
 responses = load_responses()

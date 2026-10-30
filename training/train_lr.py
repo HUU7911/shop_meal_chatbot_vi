@@ -8,9 +8,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score
 
-DATA_PATH = "data/train_vi.csv"
-MODEL_PATH = "models/shop_meal_intent_model.joblib"
-METRICS_PATH = "models/evaluation.json"
+DATA_PATH = "../data/train_vi.csv"
+MODEL_PATH = "../models/shop_meal_intent_model.joblib"
+METRICS_PATH = "../models/evaluation.json"
 
 def main():
     if not os.path.exists(DATA_PATH):
@@ -62,7 +62,7 @@ def main():
     print(f"\nAccuracy trên tập test: {accuracy:.4f}")
     print(classification_report(y_test, predictions, zero_division=0))
 
-    os.makedirs("models", exist_ok=True)
+    os.makedirs("../models", exist_ok=True)
     joblib.dump(model, MODEL_PATH)
     with open(METRICS_PATH, "w", encoding="utf-8") as f:
         json.dump(

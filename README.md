@@ -26,7 +26,7 @@ Mặc định giới hạn 30 câu/intent để thử nghiệm. Khi pipeline ch�
 
 ## 4. Huấn luyện và đánh giá
 ```bash
-python train.py
+python train_lr.py
 ```
 Mô hình được lưu tại `models/shop_meal_intent_model.joblib`. Báo cáo đánh giá được lưu tại `models/evaluation.json`.
 

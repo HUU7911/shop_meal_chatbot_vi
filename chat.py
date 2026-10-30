@@ -39,7 +39,7 @@ def reply(model, responses, message):
 
 def main():
     if not os.path.exists(MODEL_PATH):
-        raise FileNotFoundError("Chưa có model. Hãy chạy python train.py trước.")
+        raise FileNotFoundError("Chưa có model. Hãy chạy python train_lr.py trước.")
 
     model = joblib.load(MODEL_PATH)
     responses = load_responses()
