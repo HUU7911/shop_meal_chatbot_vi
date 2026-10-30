@@ -2,6 +2,7 @@ import os
 import re
 import time
 import pandas as pd
+import torch
 
 DATA_URL = (
     "https://huggingface.co/datasets/bitext/"
@@ -204,7 +205,6 @@ def load_translator():
 
 
 def _generate(translator, texts):
-    import torch
 
     tokenizer, model = translator
 
