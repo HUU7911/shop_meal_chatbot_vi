@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-const KEY = "shopmeal_theme";
-const systemDark = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
+const KEY = "shopmeal_theme_v2";
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {
@@ -9,7 +8,7 @@ export function useTheme() {
       const saved = localStorage.getItem(KEY);
       if (saved === "light" || saved === "dark") return saved;
     } catch {}
-    return systemDark() ? "dark" : "light";
+    return "light"; // mặc định giao diện sáng
   });
 
   useEffect(() => {

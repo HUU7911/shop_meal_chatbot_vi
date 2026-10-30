@@ -32,7 +32,7 @@ Mô hình được lưu tại `models/shop_meal_intent_model.joblib`. Báo cáo 
 
 ## 5. Chat trên terminal
 ```bash
-python chat.py
+python chat-app.py
 ```
 
 ## 6. Chạy REST API
@@ -42,6 +42,10 @@ uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 
 ```bash
 uvicorn api:app --reload
+```
+
+```bash
+uvicorn api:app --reload --port 8000
 ```
 - Kiểm tra: http://localhost:8000/health
 - Swagger UI: http://localhost:8000/docs

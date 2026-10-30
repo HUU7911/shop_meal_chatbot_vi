@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from chat import load_responses, reply, MODEL_PATH
 
 BASE_DIR = Path(__file__).resolve().parent
-DIST_DIR = BASE_DIR / "chat" / "dist"
+DIST_DIR = BASE_DIR / "chat-app" / "dist"
 
 app = FastAPI(title="Shop Meal Vietnamese Chatbot", version="1.0.0")
 
@@ -40,6 +40,7 @@ def chat(request: ChatRequest):
     return ChatResponse(reply=answer, intent=intent, confidence=confidence)
 
 
+# Phải đặt SAU các route API.
 if DIST_DIR.exists():
     app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="web")
 else:
@@ -47,5 +48,5 @@ else:
     def index():
         raise HTTPException(
             status_code=404,
-            detail="Chưa có giao diện. Vào thư mục shopmeal-chat và chạy: npm install && npm run build",
+            detail="Chưa có giao diện. Vào thư mục chat-app và chạy: npm install && npm run build",
         )

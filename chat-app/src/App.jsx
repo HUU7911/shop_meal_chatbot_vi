@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import Header from "./components/Header";
 import MessageList from "./components/MessageList";
-import QuickReplies from "./components/QuickReplies";
 import Composer from "./components/Composer";
 import { useChat } from "./hooks/useChat";
 import { useTheme } from "./hooks/useTheme";
@@ -15,8 +14,7 @@ export default function App() {
   return (
     <div className="app">
       <Header status={status} theme={theme} onToggleTheme={toggle} onClear={clear} canClear={messages.length > 0} />
-      <MessageList messages={messages} pending={pending} debug={debug} onPick={send} onRetry={retry} />
-      {messages.length > 0 && <QuickReplies onPick={send} disabled={pending} />}
+      <MessageList messages={messages} pending={pending} debug={debug} onRetry={retry} />
       <Composer onSend={send} pending={pending} />
       <p className="foot">Enter để gửi, Shift + Enter để xuống dòng.</p>
     </div>
