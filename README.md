@@ -1,4 +1,6 @@
-# Shop Meal Vietnamese Chatbot (Bitext + TF-IDF + Logistic Regression)
+# Chủ đề: Xây dựng hệ thống chatbot hỗ trợ đặt món ăn sử dụng kỹ thuật xử lý ngôn ngữ tự nhiên
+
+## Shop Meal Vietnamese Chatbot (Bitext + TF-IDF + Logistic Regression)
 
 ## 1. Yêu cầu
 - Python 3.10+
